@@ -360,3 +360,8 @@ TEST_F(StringTest, join) {
   std::vector<std::wstring> wtokens = {L"hello", L"world"};
   EXPECT_EQ(L"hello world", snap::string::join(wtokens, L" "));
 }
+
+TEST_F(StringTest, translateByChars) {
+  EXPECT_EQ("HELLO", snap::string::translate("hello", "eloh?", "ELOH"));
+  EXPECT_EQ("hello", snap::string::translate("hello", "hel", ""));
+}

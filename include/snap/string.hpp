@@ -366,6 +366,78 @@ namespace snap {
       return join(tokens, std::basic_string<T>(delim));
     }
 
+    template <typename T>
+    inline std::basic_string<T> translate(const std::basic_string<T>& s,
+					  const std::basic_string<T>& from,
+					  const std::basic_string<T>& to) {
+      auto func = [&](const T c) {
+	for (auto i = 0; i < std::min(from.size(), to.size()); i++) {
+	  if (from[i] == c) {
+	    return to[i];
+	  }
+	}
+	return c;
+      };
+      return transform(s, func);
+    }
+    
+    template <typename T>
+    inline std::basic_string<T> translate(const T* s,
+					  const std::basic_string<T>& from,
+					  const std::basic_string<T>& to) {
+      return translate(std::basic_string<T>(s), from, to);
+    }
+    
+    template <typename T>
+    inline std::basic_string<T> translate(const std::basic_string<T>& s,
+					  const T* from,
+					  const std::basic_string<T>& to) {
+      return translate(s, std::basic_string<T>(from), to);
+    }
+    
+    template <typename T>
+    inline std::basic_string<T> translate(const std::basic_string<T>& s,
+					  const std::basic_string<T>& from,
+					  const T* to) {
+      return translate(s, from, std::basic_string<T>(to));
+    }
+    
+    template <typename T>
+    inline std::basic_string<T> translate(const T* s,
+					  const T* from,
+					  const std::basic_string<T>& to) {
+      return translate(std::basic_string<T>(s),
+		       std::basic_string<T>(from),
+		       to);
+    }
+    
+    template <typename T>
+    inline std::basic_string<T> translate(const T* s,
+					  const std::basic_string<T>& from,
+					  const T* to) {
+      return translate(std::basic_string<T>(s),
+		       from,
+		       std::basic_string<T>(to));
+    }
+    
+    template <typename T>
+    inline std::basic_string<T> translate(const std::basic_string<T>& s,
+					  const T* from,
+					  const T* to) {
+      return translate(s,
+		       std::basic_string<T>(from),
+		       std::basic_string<T>(to));
+    }
+    
+    template <typename T>
+    inline std::basic_string<T> translate(const T* s,
+					  const T* from,
+					  const T* to) {
+      return translate(std::basic_string<T>(s),
+		       std::basic_string<T>(from),
+		       std::basic_string<T>(to));
+    }
+
   }  // namespace string
   
 }  // namespace snap
