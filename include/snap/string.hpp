@@ -73,11 +73,38 @@ namespace snap {
 	std::equal(needle.rbegin(), needle.rend(), haystack.rbegin());
     }
 
+    template <typename T>
+    inline bool endsWith(const T* haystack,
+			 const std::basic_string<T>& needle) {
+      return endsWith(std::basic_string<T>(haystack),
+		      needle);
+    }
+    
+    template <typename T>
+    inline bool endsWith(const std::basic_string<T>& haystack,
+			 const T* needle) {
+      return endsWith(haystack,
+		      std::basic_string<T>(needle));
+    }
+    
+    template <typename T>
+    inline bool endsWith(const T* haystack,
+			 const T* needle) {
+      return endsWith(std::basic_string<T>(haystack),
+		      std::basic_string<T>(needle));
+    }
+
     template <typename T, class UnaryPredicate>
     inline std::basic_string<T> transform(std::basic_string<T> s,
 					  UnaryPredicate pred) {
       std::transform(s.begin(), s.end(), s.begin(), pred);
       return s;
+    }
+
+    template <typename T, class UnaryPredicate>
+    inline std::basic_string<T> transform(const T* s,
+					  UnaryPredicate pred) {
+      return transform(std::basic_string<T>(s), pred);
     }
 
     inline std::string upper(const std::string& s) {
@@ -167,10 +194,37 @@ namespace snap {
     }
 
     template <typename T>
+    inline bool contains(const T* haystack,
+			 const std::basic_string<T>& needle) {
+      return contains(std::basic_string<T>(haystack),
+		      needle);
+    }
+    
+    template <typename T>
+    inline bool contains(const std::basic_string<T>& haystack,
+			 const T* needle) {
+      return contains(haystack,
+		      std::basic_string<T>(needle));
+    }
+    
+    template <typename T>
+    inline bool contains(const T* haystack,
+			 const T* needle) {
+      return contains(std::basic_string<T>(haystack),
+		      std::basic_string<T>(needle));
+    }
+
+    template <typename T>
     inline std::basic_string<T> replace(std::basic_string<T> s,
 					const T from, const T to) {
       std::replace(s.begin(), s.end(), from, to);
       return s;
+    }
+
+    template <typename T>
+    inline std::basic_string<T> replace(const T* s,
+					const T from, const T to) {
+      return replace(std::basic_string<T>(s), from, to);
     }
 
     template <typename T>
@@ -188,6 +242,63 @@ namespace snap {
       return s;
     }
 
+    template <typename T>
+    inline std::basic_string<T> replace(const T* s,
+					const std::basic_string<T>& from,
+					const std::basic_string<T>& to) {
+      return replace(std::basic_string<T>(s), from, to);
+    }
+    
+    template <typename T>
+    inline std::basic_string<T> replace(const std::basic_string<T>& s,
+					const T* from,
+					const std::basic_string<T>& to) {
+      return replace(s, std::basic_string<T>(from), to);
+    }
+    
+    template <typename T>
+    inline std::basic_string<T> replace(const std::basic_string<T>& s,
+					const std::basic_string<T>& from,
+					const T* to) {
+      return replace(s, from, std::basic_string<T>(to));
+    }
+    
+    template <typename T>
+    inline std::basic_string<T> replace(const T* s,
+					const T* from,
+					const std::basic_string<T>& to) {
+      return replace(std::basic_string<T>(s),
+		     std::basic_string<T>(from),
+		     to);
+    }
+    
+    template <typename T>
+    inline std::basic_string<T> replace(const T* s,
+					const std::basic_string<T>& from,
+					const T* to) {
+      return replace(std::basic_string<T>(s),
+		     from,
+		     std::basic_string<T>(to));
+    }
+    
+    template <typename T>
+    inline std::basic_string<T> replace(const std::basic_string<T>& s,
+					const T* from,
+					const T* to) {
+      return replace(s,
+		     std::basic_string<T>(from),
+		     std::basic_string<T>(to));
+    }
+    
+    template <typename T>
+    inline std::basic_string<T> replace(const T* s,
+					const T* from,
+					const T* to) {
+      return replace(std::basic_string<T>(s),
+		     std::basic_string<T>(from),
+		     std::basic_string<T>(to));
+    }
+    
     namespace internal {
       template <typename T>
       inline T to_const(const T& data) {
@@ -201,7 +312,7 @@ namespace snap {
     }  // namespace internal
 
     template <typename ... Args>
-    inline std::string format(const std::string fmt, const Args& ... args) {
+    inline std::string format(const std::string fmt, const Args ... args) {
       std::size_t size = std::snprintf(nullptr, 0, fmt.c_str(),
 				       internal::to_const(args) ...) + 1;
       std::unique_ptr<char[]> buf(new char[size]);
@@ -210,7 +321,7 @@ namespace snap {
     }
 
     template <typename ... Args>
-    inline std::wstring format(const std::wstring fmt, const Args& ... args) {
+    inline std::wstring format(const std::wstring fmt, const Args ... args) {
       // Used a fixed size buffer, since unable to predict the required buffer size
       wchar_t buf[65535] = {};
       std::swprintf(buf, sizeof(buf), fmt.c_str(), internal::to_const(args) ...);
@@ -231,6 +342,12 @@ namespace snap {
     }
 
     template <typename T>
+    inline std::vector<std::basic_string<T>> split(const T* s,
+						   const T delim) {
+      return split(std::basic_string<T>(s), delim);
+    }
+
+    template <typename T>
     inline std::basic_string<T> join(const std::vector<std::basic_string<T>>& tokens,
 				     const std::basic_string<T>& delim) {
       std::basic_string<T> s;
@@ -241,6 +358,12 @@ namespace snap {
 	}
       }
       return s;
+    }
+
+    template <typename T>
+    inline std::basic_string<T> join(const std::vector<std::basic_string<T>>& tokens,
+				     const T* delim) {
+      return join(tokens, std::basic_string<T>(delim));
     }
 
   }  // namespace string
