@@ -45,9 +45,21 @@ TEST_F(Sqlite3StatementTest, testExecutePreparedStatement) {
   EXPECT_THROW(stmt.execute(), std::runtime_error);
 }
 
-TEST_F(Sqlite3StatementTest, testBindArguments) {
+TEST_F(Sqlite3StatementTest, testBindArgumentsWithIndices) {
   auto stmt = db->prepare(test::sqlite3::INSERT_PREP_STMT);
-  stmt.bind(1, 1).bind(2, 2.0).bind(":third", "three").bind(":fourth");
+  stmt.bind(1, 1)
+      .bind(2, 2.0)
+      .bind(3, "three")
+      .bind(4);
+  EXPECT_EQ(1, stmt.execute());
+}
+
+TEST_F(Sqlite3StatementTest, testBindArgumentsWithNames) {
+  auto stmt = db->prepare(test::sqlite3::INSERT_PREP_STMT);
+  stmt.bind(":first", 1)
+      .bind(":second", 2.0)
+      .bind(":third", "three")
+      .bind(":fourth");
   EXPECT_EQ(1, stmt.execute());
 }
 
