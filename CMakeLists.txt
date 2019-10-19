@@ -7,6 +7,7 @@ include(CMakeUtils)
 
 set_cxx_standard(11)
 
+enable_static_analysis()
 enable_testing()
 enable_test_coverage()
 
