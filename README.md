@@ -14,7 +14,7 @@ A set of simple utility functions and classes for C++
 
 Use the following command to install the packages on Ubuntu
 
-    $ sudo apt-get install build-essential gcc g++ cmake libgtest-dev python python-pip cppcheck clang-tidy gcovr
+    $ sudo apt-get install build-essential pkg-config gcc g++ cmake libgtest-dev python python-pip cppcheck clang-tidy gcovr libsqlite3-dev libzip-dev
     $ pip install cpplint
     $ cmake . /usr/src/gtest/
     $ make .
