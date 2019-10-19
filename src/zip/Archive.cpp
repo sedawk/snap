@@ -22,6 +22,10 @@
   SOFTWARE.
 */
 
+#include <zip.h>
+#include <cerrno>
+#include <stdexcept>
+#include <string>
 #include "snap/zip/Archive.hpp"
 
 namespace snap {

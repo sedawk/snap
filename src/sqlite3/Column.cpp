@@ -24,6 +24,7 @@
 
 #include <sqlite3.h>
 #include <cstdint>
+#include <string>
 #include "snap/sqlite3/Column.hpp"
 
 namespace snap {

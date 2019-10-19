@@ -23,6 +23,7 @@
 */
 
 #include <gtest/gtest.h>
+#include <zip.h>
 #include <cstdio>
 #include <stdexcept>
 #include "Constants.hpp"
